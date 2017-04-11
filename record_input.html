@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Train Your dog</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
+	<script >
+		function format (fmtstr) {
+ 		 	var args = Array.prototype.slice.call(arguments, 1);
+  			 return fmtstr.replace(/\{(\d+)\}/g, function (match, index) {
+    		return args[index];
+  		});
+		}
+
+	</script>
+	<script>
+		var dogstate=0
+		function setdogstate(state) {
+			dogstate=state
+			imghappy=document.getElementById("happydog");
+			imgsad=document.getElementById("saddog");
+			imgsad.hidden=true;
+			imghappy.hidden=true;
+
+			switch(state){
+				case 0:
+					imghappy.hidden=false;
+
+					break;
+				case 1:
+					imgsad.hidden=false ;
+					break;
+
+			}
+		}
+
+
+	</script>
+	<script src="js/audiodisplay.js"></script>
+	<script src="js/recorder.js"></script>
+	<script src="js/main.js"></script>
+
+	<style>
+	html { overflow: hidden; }
+	body {
+		font: 14pt Arial, sans-serif;
+		background: lightgrey;
+		display: flex;
+		flex-direction: column;
+		height: 100vh;
+		width: 100%;
+		margin: 0 0;
+	}
+	canvas {
+		display: inline-block;
+		background: #202020;
+		width: 65%; /* 95 */
+		height: 45%;
+		box-shadow: 0px 0px 10px blue;
+	}
+	#controls {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-around;
+		height: 20%;
+		width: 100%;
+	}
+	#record { height: 15vh; }
+	#record.recording {
+		background: red;
+		background: -webkit-radial-gradient(center, ellipse cover, #ff0000 0%,lightgrey 75%,lightgrey 100%,#7db9e8 100%);
+		background: -moz-radial-gradient(center, ellipse cover, #ff0000 0%,lightgrey 75%,lightgrey 100%,#7db9e8 100%);
+		background: radial-gradient(center, ellipse cover, #ff0000 0%,lightgrey 75%,lightgrey 100%,#7db9e8 100%);
+	}
+	#save, #save img { height: 10vh; }
+	#save { opacity: 0.25;}
+	#save[download] { opacity: 1;}
+	#viz {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		align-items: left;
+	}
+	@media (orientation: landscape) {
+		body { flex-direction: row;}
+		#controls { flex-direction: column; height: 100%; width: 10%;}
+		#viz { height: 100%; width: 90%;}
+	}
+
+	</style>
+</head>
+<body>
+    <table>
+        <tr><td><canvas id="analyser" width="500" height="250"></canvas></td></tr>
+        <tr><td><img id="record" src="img/mic128.png" onclick="toggleRecording(this);"></td></tr>
+		<tr><td><span id = "timerstatus" name ="timerstatus"></span> </td></tr>
+    </table>
+
+	<table>
+		<tr  >
+			<td rowspan="2"> <img src="img/happydog2.gif" id="happydog" name="happydog">
+				 <img src="img/saddog2.gif" id="saddog" name="saddog" hidden="true">
+
+			</td>
+
+		</tr>
+
+		<tr>
+			<td> <input type="button" value="happydog" onclick="setdogstate(0)"> </td>
+			<td> <input type="button" value="saddog" onclick="setdogstate(1)">  </td>
+		</tr>
+	</table>
+</body>
+</html>

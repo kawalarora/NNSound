@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
+    <form method="post" id="target" action="http://127.0.0.1:5000/upload">
+
+    <input id= "data" name = "data" type="hidden" value="Hello there">
+        <!--<input type="submit" value="Go">-->
+     <input type="button" onclick="myFunction()" value="Submit form">
+    </form>
+
+    <script>
+        function myFunction() {
+            document.getElementById("data").value="Hoooo laaaaaa"
+
+        blob="askjdflkalkfaklsfaskdfaskdfalkdfalkfjsalkfaskjs"
+        url="http://127.0.0.1:5000/upload"
+        $.ajax({
+           type: "POST",
+           url: url,
+           data: {"data":blob} ,//$("#target").serialize(), // serializes the form's elements.
+           success: function(data)
+           {
+               alert(data); // show response from the php script.
+           }
+         });
+         }
+    </script>
+</head>
+<body>
+
+</body>
+</html>
