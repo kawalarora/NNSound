@@ -1,0 +1,186 @@
+<!doctype html>
+<html>
+   <head>
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <title>voice input</title>
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
+      <script >
+         function format (fmtstr) {
+         	 	var args = Array.prototype.slice.call(arguments, 1);
+         			 return fmtstr.replace(/\{(\d+)\}/g, function (match, index) {
+           		return args[index];
+         		});
+         }
+
+      </script>
+      <script>
+
+           function getClassType(){
+                  classtype= "music_instrument"
+            }
+
+         function getstatus( ) {
+          var radios = document.getElementsByName('voice');
+
+         for (var i = 0, length = radios.length; i < length; i++) {
+           		if (radios[i].checked) {
+               	 	status=radios[i].value
+               		// only one radio can be logically checked, don't check the rest
+               		return status;
+           		}
+         }
+
+
+         }
+
+         function changeImage(img){
+         var imgsrc=""
+         switch(img){
+            case 0: imgsrc="";
+            break;
+
+            case 1: imgsrc="";
+            break;
+
+
+
+
+            }
+            img=document.getElementById("displayimage")
+            img.src=imgsrc
+
+
+
+         }
+
+         function SetTestClass(status) {
+               document.getElementById("returnclass").innerText=status
+
+         }
+
+      </script>
+      <script src="js/audiodisplay.js"></script>
+      <script src="js/recorder.js"></script>
+      <script src="js/main.js"></script>
+      <style>
+         html { overflow: hidden; }
+         body {
+         font: 14pt Arial, sans-serif;
+         background: lightgrey;
+         display: flex;
+         flex-direction: column;
+         height: 100vh;
+         width: 100%;
+         margin: 0 0;
+         }
+         canvas {
+         display: inline-block;
+         background: #202020;
+         width: 65%; /* 95 */
+         height: 45%;
+         box-shadow: 0px 0px 10px blue;
+         }
+         #controls {
+         display: flex;
+         flex-direction: row;
+         align-items: center;
+         justify-content: space-around;
+         height: 20%;
+         width: 100%;
+         }
+         #record { height: 15vh; }
+         #record.recording {
+         background: red;
+         background: -webkit-radial-gradient(center, ellipse cover, #ff0000 0%,lightgrey 75%,lightgrey 100%,#7db9e8 100%);
+         background: -moz-radial-gradient(center, ellipse cover, #ff0000 0%,lightgrey 75%,lightgrey 100%,#7db9e8 100%);
+         background: radial-gradient(center, ellipse cover, #ff0000 0%,lightgrey 75%,lightgrey 100%,#7db9e8 100%);
+         }
+         #save, #save img { height: 10vh; }
+         #save { opacity: 0.25;}
+         #save[download] { opacity: 1;}
+         #viz {
+         display: flex;
+         flex-direction: column;
+         justify-content: space-around;
+         align-items: left;
+         }
+         @media (orientation: landscape) {
+         body { flex-direction: row;}
+         #controls { flex-direction: column; height: 100%; width: 10%;}
+         #viz { height: 100%; width: 90%;}
+         }
+      </style>
+   </head>
+   <body>
+      <table>
+         <tr>
+            <td>
+               <canvas id="analyser" width="500" height="250"></canvas>
+            </td>
+         </tr>
+         <tr>
+            <td><img id="record" src="img/mic128.png" onclick="toggleRecording(this);"></td>
+         </tr>
+         <tr>
+            <td><span id = "timerstatus" name ="timerstatus"></span> </td>
+         </tr>
+      </table>
+      <table>
+         <tr>
+            <td rowspan="5">
+               <h3> Class </h3>
+            </td>
+            <td rowspan="5">
+               <img src=""  id ='displayimage' name = 'displayimage'>
+
+            </td>
+            <td>
+               <input type="radio" name="class" value="0" checked="true" onclick="changeImage(0);" > Guitar
+            </td>
+            <td><img src=""   height="42" width="42"></td>
+         </tr>
+         <tr>
+            <td> <input type="radio" name="class" value="1" onclick="changeImage(1);" > Flute</td>
+            <td><img src=""   height="42" width="42"></td>
+         </tr>
+         <tr>
+            <td> <input type="radio" name="class" value="2" onclick="changeImage(2);" > clap </td>
+            <td><img src=""   height="42" width="42"></td>
+         </tr>
+         <tr>
+            <td> <input type="radio" name="class" value="3" onclick="changeImage(3);" > vocals </td>
+            <td><img src=""   height="42" width="42"></td>
+         </tr>
+         <tr>
+            <td> <input type="radio" name="class" value="4" onclick="changeImage(4);" > Kalimba </td>
+            <td><img src=""   height="42" width="42"></td>
+         </tr>
+
+         <tr>
+            <td col="2"><span id="returnclass"></span></td>
+         </tr>
+         <!--
+         <tr>
+            <td>  <input type="radio" name="class" value="2"  > Veer </td>
+            <td><img src=" "   height="42" width="42"></td>
+         </tr>
+         -->
+      </table>
+      <table>
+         <tr>
+            <td rowspan="2" >
+               <h3> Mode </h3>
+            </td>
+            <td>
+               <input type="radio" name="mode" value="0" checked> Train
+            </td>
+            <td><img src=" "   height="42" width="42"></td>
+         </tr>
+         <tr>
+            <td> <input type="radio" name="mode" value="1"  > Test </td>
+            <td><img src=""   height="42" width="42"></td>
+         </tr>
+         <tr>
+      </table>
+   </body>
+</html>
